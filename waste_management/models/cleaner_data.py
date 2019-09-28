@@ -15,6 +15,11 @@ class CleanerData(models.Model):
         on_delete=models.CASCADE
     )
 
+    picture_before_cleaning = models.ImageField(
+        upload_to='images/',
+    )
+
     state = models.CharField(
-        max_length=128
+        max_length=128,
+        default='chosen'
     )
