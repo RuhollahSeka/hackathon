@@ -5,11 +5,9 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from waste_management.models import ReportData
-from waste_management.serializers.report_data import ReportDataSerializer
 
 
 class ReportDataCreateView(CreateAPIView):
-    serializer_class = ReportDataSerializer
 
     def create(self, request: Request, *args, **kwargs):
         data = request.data
@@ -18,13 +16,15 @@ class ReportDataCreateView(CreateAPIView):
         longitude = data.get('longitude')
         latitude = data.get('latitude')
 
-        ReportData.objects.create(
+        report = ReportData.objects.create(
             user=user,
             longitude=longitude,
             latitude=latitude
         )
 
         return Response(
-            'success',
+            {
+                'id': report.id
+            },
             status=status.HTTP_200_OK
         )
