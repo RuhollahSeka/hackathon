@@ -29,3 +29,7 @@ class ReportData(models.Model):
     score = models.IntegerField(
         default=0
     )
+
+    @property
+    def coords(self):
+        return self.latitude, self.longitude
